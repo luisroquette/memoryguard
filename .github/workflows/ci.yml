@@ -30,5 +30,7 @@ jobs:
           fi
       - name: Test
         run: swift test
+      - name: Validate product site
+        run: python3 Scripts/validate-site.py
       - name: Release build
         run: swift build -c release
