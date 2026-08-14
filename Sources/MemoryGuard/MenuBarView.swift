@@ -25,7 +25,7 @@ struct MenuBarView: View {
             HStack(spacing: 10) {
                 compactMetric(model.hasCompletedSample ? "\(model.snapshot.availablePercent)%" : "—", "Disponível")
                 compactMetric(model.hasCompletedSample ? bytes(model.snapshot.swapUsedBytes) : "—", "Swap")
-                compactMetric("\(model.buildGroups.count)", "Builds")
+                compactMetric("\(model.heavyBuildCount)/\(model.buildGroups.count)", "Pesados / total")
             }
 
             Toggle("Alívio automático", isOn: $model.automaticRelief)
@@ -34,7 +34,10 @@ struct MenuBarView: View {
             if !model.buildGroups.isEmpty {
                 VStack(spacing: 8) {
                     ForEach(model.buildGroups.prefix(3)) { group in
-                        BuildRow(group: group)
+                        BuildRow(
+                            group: group,
+                            minimumGroupBytes: model.policy.minimumGroupBytes
+                        )
                     }
                 }
             }

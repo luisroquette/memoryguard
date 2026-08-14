@@ -72,6 +72,27 @@ struct MemoryGuardCoreTests {
         #expect(decision.action == .none)
     }
 
+    @Test func classifiesBuildAtExactProfileThresholdAsHeavy() {
+        let threshold: UInt64 = 256 * 1_024 * 1_024
+        let below = BuildGroup(
+            id: 10,
+            residentBytes: threshold - 1,
+            elapsedSeconds: 10,
+            label: "build Next.js",
+            isStopped: false
+        )
+        let exact = BuildGroup(
+            id: 20,
+            residentBytes: threshold,
+            elapsedSeconds: 10,
+            label: "build Swift",
+            isStopped: false
+        )
+
+        #expect(below.isHeavy(minimumBytes: threshold) == false)
+        #expect(exact.isHeavy(minimumBytes: threshold) == true)
+    }
+
     @Test func resumesAfterTwoHealthySamples() {
         let policy = ReliefPolicy()
         let snapshot = MemorySnapshot(

@@ -14,16 +14,22 @@ struct ActivityView: View {
 
                 MGCard {
                     VStack(alignment: .leading, spacing: 12) {
-                        SectionTitle("Trabalho reconhecido", detail: "\(model.buildGroups.count) grupo(s)")
+                        SectionTitle(
+                            "Trabalho reconhecido",
+                            detail: "\(model.heavyBuildCount) pesado(s) de \(model.buildGroups.count)"
+                        )
                         if model.buildGroups.isEmpty {
                             EmptyState(
                                 icon: "checkmark.circle",
                                 title: "Nenhum build ativo",
-                                detail: "O MemoryGuard continua observando em segundo plano."
+                                detail: "O MemoryGuard continua observando. Builds reconhecidos aparecem aqui com estado, memória e classificação."
                             )
                         } else {
                             ForEach(model.buildGroups) { group in
-                                BuildRow(group: group)
+                                BuildRow(
+                                    group: group,
+                                    minimumGroupBytes: model.policy.minimumGroupBytes
+                                )
                                 if group.id != model.buildGroups.last?.id { Divider() }
                             }
                         }

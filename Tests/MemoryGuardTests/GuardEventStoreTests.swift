@@ -54,4 +54,19 @@ struct GuardEventStoreTests {
         #expect(model.eventHistory.filter { $0.message == "Alívio automático desativado." }.count == 1)
         #expect(GuardEventStore.load(defaults: defaults) == model.eventHistory)
     }
+
+    @Test @MainActor func clearingHistoryLeavesHistoryEmpty() {
+        let suiteName = "MemoryGuardTests.\(UUID().uuidString)"
+        let defaults = UserDefaults(suiteName: suiteName)!
+        defer { defaults.removePersistentDomain(forName: suiteName) }
+
+        let model = MemoryGuardProductModel(defaults: defaults, startsMonitoring: false)
+        #expect(model.eventHistory.isEmpty == false)
+
+        model.clearHistory()
+
+        #expect(model.eventHistory.isEmpty)
+        #expect(GuardEventStore.load(defaults: defaults).isEmpty)
+        #expect(model.lastAction == "Histórico local limpo.")
+    }
 }

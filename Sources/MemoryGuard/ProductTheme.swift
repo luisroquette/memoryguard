@@ -153,6 +153,7 @@ struct SectionTitle: View {
 
 struct BuildRow: View {
     let group: BuildGroup
+    let minimumGroupBytes: UInt64
 
     var body: some View {
         HStack(spacing: 12) {
@@ -172,13 +173,21 @@ struct BuildRow: View {
                 Text(group.isStopped ? "Pausado" : "Ativo")
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(group.isStopped ? .orange : .green)
-                Text(ByteCountFormatter.string(fromByteCount: Int64(group.residentBytes), countStyle: .memory))
+                Text("\(weightLabel) · \(bytes(group.residentBytes))")
                     .font(.caption.monospacedDigit())
                     .foregroundStyle(.secondary)
             }
         }
         .padding(.vertical, 4)
         .accessibilityElement(children: .combine)
+    }
+
+    private var weightLabel: String {
+        group.isHeavy(minimumBytes: minimumGroupBytes) ? "Pesado" : "Abaixo do limite"
+    }
+
+    private func bytes(_ value: UInt64) -> String {
+        ByteCountFormatter.string(fromByteCount: Int64(value), countStyle: .memory)
     }
 
     private func duration(_ seconds: Int) -> String {

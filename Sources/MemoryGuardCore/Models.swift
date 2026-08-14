@@ -88,6 +88,10 @@ public struct BuildGroup: Sendable, Identifiable, Equatable {
         self.label = label
         self.isStopped = isStopped
     }
+
+    public func isHeavy(minimumBytes: UInt64) -> Bool {
+        residentBytes >= minimumBytes
+    }
 }
 
 public struct ReliefDecision: Sendable, Equatable {

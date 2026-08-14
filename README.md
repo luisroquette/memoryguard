@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://luisroquette.github.io/memoryguard/"><img src="https://img.shields.io/badge/product%20page-open-0C8F55?style=flat-square" alt="Open the MemoryGuard product page" /></a>
-  <a href="https://github.com/luisroquette/memoryguard/releases/latest"><img src="https://img.shields.io/badge/version-1.3.0-0A7AFF?style=flat-square" alt="MemoryGuard version 1.3.0" /></a>
+  <a href="https://github.com/luisroquette/memoryguard/releases/latest"><img src="https://img.shields.io/badge/version-1.3.1-0A7AFF?style=flat-square" alt="MemoryGuard version 1.3.1" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-161B22?style=flat-square" alt="MIT license" /></a>
   <img src="https://img.shields.io/badge/macOS-14%2B-161B22?style=flat-square" alt="macOS 14 or later" />
 </p>
@@ -33,7 +33,7 @@ unrecognized workloads. The prebuilt release currently supports Apple silicon.
 ## What it does
 
 1. Samples available RAM, macOS kernel pressure and free swap every 5–30 seconds.
-2. Recognizes Next.js, Swift, TypeScript, Vitest and Playwright build groups.
+2. Recognizes Next.js, Swift, TypeScript, Vitest and Playwright build groups, then labels each as heavy or below the selected threshold.
 3. Requires at least two eligible heavy groups before pausing anything.
 4. Pauses only the newest eligible group, leaving the older one free to finish.
 5. Resumes paused work after two fully healthy samples.

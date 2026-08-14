@@ -73,13 +73,24 @@ struct AppShellView: View {
     }
 
     private var statusBadge: some View {
-        Label(model.snapshot.level.title, systemImage: model.snapshot.level.icon)
+        Label(
+            model.hasCompletedSample ? model.snapshot.level.title : "Lendo…",
+            systemImage: model.hasCompletedSample ? model.snapshot.level.icon : "ellipsis.circle"
+        )
             .font(.caption.weight(.semibold))
-            .foregroundStyle(model.snapshot.level.color)
+            .foregroundStyle(statusTint)
             .padding(.horizontal, 10)
             .padding(.vertical, 5)
-            .background(model.snapshot.level.color.opacity(0.11), in: Capsule())
-            .accessibilityLabel("Pressão de memória: \(model.snapshot.level.title)")
+            .background(statusTint.opacity(0.11), in: Capsule())
+            .accessibilityLabel(
+                model.hasCompletedSample
+                    ? "Pressão de memória: \(model.snapshot.level.title)"
+                    : "Pressão de memória: aguardando primeira leitura"
+            )
+    }
+
+    private var statusTint: Color {
+        model.hasCompletedSample ? model.snapshot.level.color : .secondary
     }
 
     private func positionWindowIfNeeded() {

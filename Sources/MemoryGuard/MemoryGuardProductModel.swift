@@ -88,6 +88,9 @@ final class MemoryGuardProductModel: ObservableObject {
 
     var pausedCount: Int { controller.pausedGroupIDs.count }
     var policy: ReliefPolicy { protectionProfile.policy }
+    var heavyBuildCount: Int {
+        buildGroups.filter { $0.isHeavy(minimumBytes: policy.minimumGroupBytes) }.count
+    }
 
     var appVersion: String {
         Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "dev"
@@ -183,7 +186,7 @@ final class MemoryGuardProductModel: ObservableObject {
     func clearHistory() {
         eventHistory.removeAll()
         GuardEventStore.clear(defaults: defaults)
-        recordEvent(kind: .information, message: "Histórico limpo.")
+        lastAction = "Histórico local limpo."
     }
 
     func restoreDefaults() {

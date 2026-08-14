@@ -43,9 +43,11 @@ struct OverviewView: View {
                     )
                     MetricTile(
                         icon: "hammer.fill",
-                        value: "\(model.buildGroups.count)",
-                        label: "Builds reconhecidos",
-                        detail: model.pausedCount > 0 ? "\(model.pausedCount) pausado(s)" : "Nenhuma intervenção",
+                        value: "\(model.heavyBuildCount) de \(model.buildGroups.count)",
+                        label: "Builds pesados",
+                        detail: model.pausedCount > 0
+                            ? "\(model.pausedCount) pausado(s)"
+                            : "Limite: \(bytes(model.policy.minimumGroupBytes))",
                         tint: .purple
                     )
                 }
