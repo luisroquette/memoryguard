@@ -17,6 +17,17 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+          fetch-depth: 0
+      - name: Reject public commit emails
+        shell: bash
+        run: |
+          if git log --format='%ae%n%ce' \
+            | sort -u \
+            | grep -Ev '^[^@[:space:]]+@users\.noreply\.github\.com$' \
+            | grep -q .; then
+            echo 'Commit metadata contains a non-private email address.' >&2
+            exit 1
+          fi
       - name: Test
         run: swift test
       - name: Release build
