@@ -1,0 +1,5 @@
+.build/
+dist/
+Resources/*.png
+Resources/*.icns
+Resources/MemoryGuard.iconset/

@@ -1,0 +1,8 @@
+.DS_Store
+.build/
+dist/
+release/
+graphify-out/
+.memoryguard-package.*
+*.xcuserstate
+xcuserdata/
