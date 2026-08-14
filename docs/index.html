@@ -107,6 +107,63 @@
       <div><strong>2×</strong><span>healthy samples before resume</span></div>
     </section>
 
+    <section class="pressure-lab section" id="pressure-lab" data-pressure-lab>
+      <div class="lab-heading reveal">
+        <div>
+          <p class="eyebrow">Interactive safety model</p>
+          <h2>Watch the guardrail decide.</h2>
+        </div>
+        <p>This simulation uses the Balanced profile and two recognized heavy builds. It runs entirely in your browser and controls nothing on your Mac.</p>
+      </div>
+
+      <div class="lab-shell reveal">
+        <div class="lab-toolbar" role="group" aria-label="Memory pressure simulation state">
+          <button type="button" aria-pressed="true" data-lab-state="healthy"><span>01</span> HEALTHY</button>
+          <button type="button" aria-pressed="false" data-lab-state="pressure"><span>02</span> PRESSURE</button>
+          <button type="button" aria-pressed="false" data-lab-state="recovery"><span>03</span> RECOVERY</button>
+        </div>
+
+        <div class="lab-grid">
+          <div class="memory-gauge">
+            <div class="gauge-ring" data-gauge-ring>
+              <div><strong data-memory-value>38%</strong><span>AVAILABLE<br>MEMORY</span></div>
+            </div>
+            <dl>
+              <div><dt>KERNEL</dt><dd data-kernel-value>Healthy</dd></div>
+              <div><dt>SWAP FREE</dt><dd data-swap-value>2.4 GB</dd></div>
+              <div><dt>PROFILE</dt><dd>Balanced</dd></div>
+            </dl>
+          </div>
+
+          <div class="build-lanes" aria-live="polite">
+            <article class="build-lane older-build">
+              <div class="lane-meta"><span>OLDER BUILD · PID 4182</span><b data-older-status>RUNNING</b></div>
+              <h3>Next.js production build</h3>
+              <div class="lane-progress"><i data-older-progress></i></div>
+              <p>Recognized · 1.8 GB resident memory</p>
+            </article>
+            <article class="build-lane newer-build" data-newer-build>
+              <div class="lane-meta"><span>NEWER BUILD · PID 4317</span><b data-newer-status>RUNNING</b></div>
+              <h3>Swift release compile</h3>
+              <div class="lane-progress"><i data-newer-progress></i></div>
+              <p>Recognized · 1.2 GB resident memory</p>
+            </article>
+            <div class="recovery-samples" data-recovery-samples>
+              <span>HEALTHY SAMPLE 1 <i></i></span><span>HEALTHY SAMPLE 2 <i></i></span>
+            </div>
+          </div>
+
+          <aside class="decision-readout">
+            <span class="mono-label">DECISION LOG</span>
+            <strong data-decision-title>No intervention</strong>
+            <p data-decision-copy>Memory is healthy. Both recognized builds continue running.</p>
+            <div class="decision-code"><span>RULE</span><code data-decision-rule>observe_only</code></div>
+          </aside>
+        </div>
+      </div>
+      <p class="lab-note">A visual model of the published protection contract. Exact thresholds remain visible in the app and source.</p>
+    </section>
+
     <section id="why" class="section why-section">
       <div class="section-heading reveal">
         <p class="eyebrow">The actual problem</p>
